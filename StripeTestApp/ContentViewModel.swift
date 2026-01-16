@@ -9,7 +9,7 @@ final class ContentViewModel: ObservableObject {
 
     private let readerService: ReaderService
 
-    init(readerService: ReaderService = MockReaderService()) {
+    init(readerService: ReaderService = ReaderServiceFactory.make(mode: AppConfig.readerMode)) {
         self.readerService = readerService
         connectionStatus = readerService.status
     }

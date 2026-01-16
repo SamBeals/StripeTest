@@ -24,9 +24,11 @@ struct ContentView: View {
 
     private var mockNotice: some View {
         VStack(alignment: .leading, spacing: 6) {
-            Text("Mock Mode")
+            Text(AppConfig.readerMode == .mock ? "Mock Mode" : "Live Mode")
                 .font(.headline)
-            Text("This screen uses a mocked reader service. It will not connect to real M2 hardware until the Stripe Terminal SDK is integrated.")
+            Text(AppConfig.readerMode == .mock
+                 ? "This screen uses a mocked reader service. It will not connect to real M2 hardware."
+                 : "This screen uses the Stripe Terminal SDK to discover and connect to a live M2 reader.")
                 .font(.subheadline)
                 .foregroundColor(.secondary)
             Text("Backend: \(AppConfig.backendURL.absoluteString)")
