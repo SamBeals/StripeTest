@@ -4,7 +4,7 @@ Simple SwiftUI mock UI for an M2 Reader flow.
 
 ## Status
 
-The current UI uses a mocked reader service. It does **not** connect to real Stripe Terminal hardware until the Stripe Terminal SDK is integrated.
+The app now supports a real Stripe Terminal integration when `AppConfig.readerMode` is set to `.stripeTerminal`. It uses the Stripe Terminal SDK to discover, connect, and collect payments with an M2 reader.
 
 ## Editing tips
 
@@ -13,12 +13,18 @@ The current UI uses a mocked reader service. It does **not** connect to real Str
 - Reader interactions (mock vs real) are defined in `StripeTestApp/ReaderService.swift`.
 - Environment-specific values (backend URL, location ID) live in `StripeTestApp/AppConfig.swift`.
 
-## What is still needed for real reader connectivity
+## What is needed for real reader connectivity
 
-- Add the Stripe Terminal iOS SDK and configure it with your Stripe account keys.
+- The repo now includes a `Package.swift` that pulls in the Stripe Terminal iOS SDK via Swift Package Manager. If you use Xcode, you can also add the same package in the project settings.
 - Provide a backend endpoint that returns connection tokens for the SDK.
-- Implement reader discovery, selection, and connection flows.
+- Implement backend endpoints for creating payment intents and refunds.
 - Handle required iOS permissions (Bluetooth, local network, location if needed).
+
+The iOS code expects these backend endpoints under `AppConfig.backendURL`:
+
+- `POST /connection_token` → `{ "secret": "..." }`
+- `POST /create_payment_intent` → `{ "clientSecret": "..." }`
+- `POST /refund` → `{ "paymentIntentId": "pi_..." }`
 
 ## Required account + location details for real connections
 

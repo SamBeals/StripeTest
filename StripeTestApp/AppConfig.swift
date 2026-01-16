@@ -4,4 +4,5 @@ import Foundation
 enum AppConfig {
     static let backendURL = URL(string: "http://192.168.0.134:4242")!
     static let readerLocationId = "tml_GWCmogANWkpxV7"
+    static let readerMode: ReaderMode = .stripeTerminal
 }
